@@ -38,6 +38,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "14.10.21:", desc: "Use standard nginx.conf from lsio alpine nginx base image." }
   - { date: "03.09.21", desc: "Added support for Redis caching."}
   - { date: "01.07.21:", desc: "Rebase to Alpine 3.14." }
   - { date: "09.04.21:", desc: "Initial Release." }
