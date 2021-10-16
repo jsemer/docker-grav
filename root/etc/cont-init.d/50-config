@@ -1,13 +1,13 @@
 #!/usr/bin/with-contenv bash
 
-if ! grep -q 'config-v1' /config/nginx/site-confs/default; then
-    cp /defaults/default /config/nginx/site-confs
+if ! grep -q 'Version 2021/10/14' /config/nginx/site-confs/default.conf; then
+    cp /defaults/default.conf /config/nginx/site-confs/default.conf
 fi
 
 symlinks=( \
-/app/grav-admin/backup \
-/app/grav-admin/logs \
-/app/grav-admin/user \
+/app/www/public/backup \
+/app/www/public/logs \
+/app/www/public/user \
 )
 
 shopt -s globstar dotglob

@@ -32,11 +32,14 @@ RUN \
     | awk '/tag_name/{print $4;exit}' FS='[""]'); \
   fi && \
   echo "*** Installing Grav ***" && \
+  mkdir -p \
+    /app/www/public && \
   curl -o \
     /tmp/grav.zip -L \
     "https://github.com/getgrav/grav/releases/download/${GRAV_RELEASE}/grav-admin-v${GRAV_RELEASE}.zip" && \
   unzip -q \
-    /tmp/grav.zip -d /app && \
+    /tmp/grav.zip -d /tmp/grav && \
+  mv /tmp/grav/* /app/www/public/ && \
   echo "*** Cleaning Up ***" && \
   rm -rf \
     /tmp/*
