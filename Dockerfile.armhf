@@ -39,7 +39,7 @@ RUN \
     "https://github.com/getgrav/grav/releases/download/${GRAV_RELEASE}/grav-admin-v${GRAV_RELEASE}.zip" && \
   unzip -q \
     /tmp/grav.zip -d /tmp/grav && \
-  mv /tmp/grav/* /app/www/public/ && \
+  mv /tmp/grav/grav-admin/* /app/www/public/ && \
   echo "*** Cleaning Up ***" && \
   rm -rf \
     /tmp/*
