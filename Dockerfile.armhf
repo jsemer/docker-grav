@@ -7,9 +7,12 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="TheSpad"
 
 RUN \
+  echo "**** install build packages ****" && \
+  apk add --no-cache --virtual=build-dependencies \
+    composer && \
+  echo "**** install runtime packages ****" && \
   apk add --update --no-cache \
     curl \
-    composer \
     php7-dom \
     php7-gd \
     php7-tokenizer \
@@ -40,8 +43,12 @@ RUN \
   unzip -q \
     /tmp/grav.zip -d /tmp/grav && \
   mv /tmp/grav/grav-admin/* /app/www/public/ && \
-  echo "*** Cleaning Up ***" && \
+  echo "**** cleanup ****" && \
+  apk del --purge \
+    build-dependencies && \
   rm -rf \
+    /root/.composer \
+    /root/.cache \
     /tmp/*
 
 COPY root/ /
