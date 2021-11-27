@@ -1,14 +1,15 @@
-## Version 2021/10/14 - Changelog: https://github.com/linuxserver/docker-grav/commits/master/root/defaults/default
+## Version 2021/11/25 - Changelog: https://github.com/linuxserver/docker-grav/commits/master/root/defaults/nginx/site-confs/default.conf.sample
 
 server {
+    include /config/nginx/server-confs/*.conf;
+
     listen 80 default_server;
     listen [::]:80 default_server;
 
+    server_name _;
+
     root /app/www/public;
     index index.html index.htm index.php;
-
-    # all ssl related config moved to ssl.conf
-    #include /config/nginx/ssl.conf;
 
     set $htpasswd_file /config/nginx/.htpasswd;
     set $auth_basic "Restricted";
@@ -16,22 +17,32 @@ server {
         set $auth_basic off;
     }
     location / {
+        include /config/nginx/location-confs/*.conf;
+
         auth_basic $auth_basic;
         auth_basic_user_file $htpasswd_file;
 
         try_files $uri $uri/ /index.html /index.php?$args =404;
     }
 
-    location ~* /(\.git|cache|bin|logs|backup|tests)/.*$ { return 403; }
-    
+    location ~* /(\.git|cache|bin|logs|backup|tests)/.*$ {
+        return 403;
+    }
+
     # deny running scripts inside core system folders
-    location ~* /(system|vendor)/.*\.(txt|xml|md|html|yaml|yml|php|pl|py|cgi|twig|sh|bat)$ { return 403; }
-    
+    location ~* /(system|vendor)/.*\.(txt|xml|md|html|yaml|yml|php|pl|py|cgi|twig|sh|bat)$ {
+        return 403;
+    }
+
     # deny running scripts inside user folder
-    location ~* /user/.*\.(txt|md|yaml|yml|php|pl|py|cgi|twig|sh|bat)$ { return 403; }
-    
+    location ~* /user/.*\.(txt|md|yaml|yml|php|pl|py|cgi|twig|sh|bat)$ {
+        return 403;
+    }
+
     # deny access to specific files in the root folder
-    location ~ /(LICENSE\.txt|composer\.lock|composer\.json|nginx\.conf|web\.config|htaccess\.txt|\.htaccess) { return 403; }
+    location ~ /(LICENSE\.txt|composer\.lock|composer\.json|nginx\.conf|web\.config|htaccess\.txt|\.htaccess) {
+        return 403;
+    }
 
     location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
         expires 30d;
@@ -55,8 +66,8 @@ server {
         open_file_cache_errors off;
     }
 
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    location ~ ^(.+\.php)(.*)$ {
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
         fastcgi_pass 127.0.0.1:9000;
         fastcgi_index index.php;
         include /etc/nginx/fastcgi_params;
@@ -64,6 +75,6 @@ server {
 
     # deny access to .htaccess/.htpasswd files
     location ~ /\.ht {
-        deny  all;
+        deny all;
     }
 }
