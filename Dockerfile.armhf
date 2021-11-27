@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine-nginx:arm32v7-3.14
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:arm32v7-3.15
 
 ARG BUILD_DATE
 ARG VERSION
@@ -13,14 +13,14 @@ RUN \
   echo "**** install runtime packages ****" && \
   apk add --update --no-cache \
     curl \
-    php7-dom \
-    php7-gd \
-    php7-tokenizer \
-    php7-opcache \
-    php7-pecl-apcu \
-    php7-pecl-yaml \
-    php7-intl \
-    php7-redis \
+    php8-dom \
+    php8-gd \
+    php8-tokenizer \
+    php8-opcache \
+    php8-pecl-apcu \
+    php8-pecl-yaml \
+    php8-intl \
+    php8-redis \
     busybox-suid \
     unzip && \
   { \
@@ -29,7 +29,7 @@ RUN \
     echo 'opcache.max_accelerated_files=4000'; \
     echo 'opcache.revalidate_freq=2'; \
     echo 'opcache.enable_cli=1'; \
-  } > /etc/php7/conf.d/php-opcache.ini && \
+  } > /etc/php8/conf.d/php-opcache.ini && \
   if [ -z ${GRAV_RELEASE+x} ]; then \
     GRAV_RELEASE=$(curl -sX GET "https://api.github.com/repos/getgrav/grav/releases/latest" \
     | awk '/tag_name/{print $4;exit}' FS='[""]'); \
