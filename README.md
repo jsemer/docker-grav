@@ -220,6 +220,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **03.09.21** - Added support for Redis caching.
+* **27.11.21:** - Rebasing to alpine 3.15 with php8. Restructure nginx configs ([see changes in base](https://github.com/linuxserver/docker-baseimage-alpine-nginx/pull/84)).
+* **03.09.21:** - Added support for Redis caching.
 * **01.07.21:** - Rebase to Alpine 3.14.
 * **09.04.21:** - Initial Release.
