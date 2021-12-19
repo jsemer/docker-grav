@@ -38,7 +38,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
-  - { date: "05.12.21:", desc: "Rebasing to alpine 3.15 with php8. Restructure nginx configs ([see changes in base](https://github.com/linuxserver/docker-baseimage-alpine-nginx/pull/84))." }
+  - { date: "19.12.21:", desc: "Rebasing to alpine 3.15 with php8. Restructure nginx configs ([see changes in base](https://github.com/linuxserver/docker-baseimage-alpine-nginx/pull/84))." }
   - { date: "03.09.21:", desc: "Added support for Redis caching."}
   - { date: "01.07.21:", desc: "Rebase to Alpine 3.14." }
   - { date: "09.04.21:", desc: "Initial Release." }
