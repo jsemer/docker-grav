@@ -17,6 +17,7 @@ RUN \
     php8-opcache \
     php8-pecl-apcu \
     php8-pecl-yaml \
+    php8-phar \
     php8-redis \
     php8-tokenizer \
     unzip && \
