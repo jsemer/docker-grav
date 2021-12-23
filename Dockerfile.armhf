@@ -7,8 +7,11 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="TheSpad"
 
 RUN \
+  echo "**** install build packages ****" && \
+  apk add --no-cache --virtual=build-dependencies \
+    composer && \
   echo "**** install runtime packages ****" && \
-  apk add --update --no-cache \
+  apk add --no-cache \
     busybox-suid \
     curl \
     php8-dom \
@@ -21,9 +24,6 @@ RUN \
     php8-redis \
     php8-tokenizer \
     unzip && \
-  echo "**** install composer ****" && \
-  php8 -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-  php8 composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
   echo "**** setup php opcache ****" && \
   { \
     echo 'opcache.memory_consumption=128'; \
@@ -46,6 +46,8 @@ RUN \
     /tmp/grav.zip -d /tmp/grav && \
   mv /tmp/grav/grav-admin/* /app/www/public/ && \
   echo "**** cleanup ****" && \
+  apk del --purge \
+    build-dependencies && \
   rm -rf \
     /root/.composer \
     /root/.cache \
