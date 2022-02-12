@@ -18,6 +18,9 @@ RUN \
     php7-pecl-yaml \
     php7-intl \
     php7-redis \
+    php7-pdo_sqlite \
+    php7-pdo_mysql \
+    sqlite \
     busybox-suid \
     unzip && \
   { \
